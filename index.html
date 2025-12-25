@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>ServersList</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="svg/favicon.svg
+">
+</head>
+<body>
+  <div class="container">
+    <!-- 语言切换器 -->
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="ja">日本語</button>
+    </div>
+
+    <!-- 汇总信息卡片 -->
+    <div class="summary-card">
+      <div class="summary-title" data-i18n="cost_summary">服务器费用汇总</div>
+      <div class="summary-content">
+        <div class="summary-item">
+          <div class="summary-value"></div>
+          <div class="summary-label" data-i18n="yearly_cost">年供金额</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value"></div>
+          <div class="summary-label" data-i18n="daily_avg_cost">日供平均金额</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 服务器卡片容器 -->
+    <div id="serverList"></div>
+  </div>
+  <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 <a href="/" target="_blank">ServersList</a> 
+                Developed & Maintained by <a href="https://www.jingsublog.com" target="_blank">Jingsublog</a>.
+                <br>
+                ServersList  is open-sourced on <a href="https://github.com/abokecn/serverslist" target="_blank"> GitHub</a> under the <a href="https://www.gnu.org/licenses/gpl-3.0.txt"><img src="https://gnu.ac.cn/graphics/gplv3-or-later.svg" border="0" width="44" height="20"></a>.
+            </div>
+        </div>
+    </footer>
+  <!-- 引入JavaScript文件 -->
+  <script src="js/providers.js"></script>
+  <script src="js/servers.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/calculation.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
