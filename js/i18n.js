@@ -23,9 +23,7 @@ const i18n = {
             'ssh_connect': 'SSH连接',
             'view_details': '查看详情',
             'server_count': '台服务器',
-            'total_servers': '服务器总数',
-            'loading_servers': '正在加载服务器数据...',
-            'no_servers': '暂无服务器数据'
+            'total_servers': '服务器总数'
         },
         'en': {
             'cost_summary': 'Server Cost Summary',
@@ -46,9 +44,7 @@ const i18n = {
             'ssh_connect': 'SSH Connect',
             'view_details': 'View Details',
             'server_count': 'servers',
-            'total_servers': 'Total Servers',
-            'loading_servers': 'Loading server data...',
-            'no_servers': 'No servers found'
+            'total_servers': 'Total Servers'
         },
         'ja': {
             'cost_summary': 'サーバー費用サマリー',
@@ -69,9 +65,7 @@ const i18n = {
             'ssh_connect': 'SSH接続',
             'view_details': '詳細表示',
             'server_count': '台のサーバー',
-            'total_servers': 'サーバー総数',
-            'loading_servers': 'サーバーデータを読み込み中...',
-            'no_servers': 'サーバーデータがありません'
+            'total_servers': 'サーバー総数'
         }
     },
     
@@ -110,9 +104,7 @@ const i18n = {
         }
         
         // 重新计算费用
-        if (typeof updateSummaryWithPreciseData === 'function') {
-            updateSummaryWithPreciseData();
-        } else if (typeof updateSummary === 'function') {
+        if (typeof updateSummary === 'function') {
             updateSummary();
         }
     },

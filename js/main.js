@@ -109,14 +109,6 @@ function renderServers() {
     
     // 清空现有内容
     container.innerHTML = '';
-
-    if (!serverList || serverList.length === 0) {
-        const emptyState = document.createElement("div");
-        emptyState.className = "empty-state";
-        emptyState.textContent = i18n.t('no_servers');
-        container.appendChild(emptyState);
-        return;
-    }
     
     // 添加服务器数量显示
     const countInfo = document.createElement("div");
@@ -124,46 +116,14 @@ function renderServers() {
     countInfo.textContent = `${i18n.t('total_servers')}: ${serverList.length}`;
     container.appendChild(countInfo);
     
-    const fragment = document.createDocumentFragment();
     serverList.forEach((server) => {
         const card = createServerCard(server);
-        fragment.appendChild(card);
+        container.appendChild(card);
     });
-    container.appendChild(fragment);
-}
-
-function renderLoadingState() {
-    const container = document.getElementById("serverList");
-    if (!container) {
-        return;
-    }
-    container.innerHTML = '';
-    const loadingState = document.createElement("div");
-    loadingState.className = "loading-state";
-    loadingState.textContent = i18n.t('loading_servers');
-    container.appendChild(loadingState);
-}
-
-async function loadServerData() {
-    const endpoints = ['/api/servers', 'data/servers.json'];
-    for (const endpoint of endpoints) {
-        try {
-            const response = await fetch(endpoint, { cache: 'no-store' });
-            if (!response.ok) {
-                continue;
-            }
-            const data = await response.json();
-            setServerList(data);
-            return;
-        } catch (error) {
-            console.warn(`加载服务器数据失败: ${endpoint}`, error);
-        }
-    }
-    console.error('无法加载服务器数据');
 }
 
 // 初始化页面
-async function init() {
+function init() {
     // 确保数据已加载
     if (typeof i18n !== 'undefined') {
         i18n.init();
@@ -172,8 +132,6 @@ async function init() {
     }
     
     // 渲染页面内容
-    renderLoadingState();
-    await loadServerData();
     renderServers();
     initCostCalculation();
 }
