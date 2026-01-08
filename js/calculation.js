@@ -1,26 +1,74 @@
+function formatMoney(value) {
+    const normalizedValue = Number.isFinite(value) ? value : 0;
+    return normalizedValue.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function parsePriceToMonthly(priceText) {
+    if (!priceText) {
+        return null;
+    }
+
+    const normalized = priceText.trim().toLowerCase();
+    const valueMatch = normalized.match(/([0-9]+(?:\.[0-9]+)?)/);
+    if (!valueMatch) {
+        return null;
+    }
+
+    const amount = Number.parseFloat(valueMatch[1]);
+    if (!Number.isFinite(amount)) {
+        return null;
+    }
+
+    if (/(year|yr|annual)/.test(normalized)) {
+        return amount / 12;
+    }
+
+    if (/(day|daily)/.test(normalized)) {
+        return amount * 30;
+    }
+
+    if (/(week|weekly)/.test(normalized)) {
+        return amount * 4;
+    }
+
+    return amount;
+}
+
+function getMonthlyCost(server) {
+    if (Number.isFinite(server.monthlyCost) && server.monthlyCost > 0) {
+        return server.monthlyCost;
+    }
+
+    const parsedMonthly = parsePriceToMonthly(server.price);
+    return Number.isFinite(parsedMonthly) ? parsedMonthly : 0;
+}
+
 // 计算费用汇总的核心函数
 function calculateCostSummary() {
     if (!serverList || serverList.length === 0) {
         console.error('服务器数据未加载');
-        return { yearlyTotal: '¥0', dailyAverage: '¥0.00' };
+        return { yearlyTotal: '¥0.00', dailyAverage: '¥0.00' };
     }
     
     // 计算年总费用
-    const yearlyTotal = serverList.reduce((sum, server) => sum + (server.monthlyCost || 0) * 12, 0);
+    const yearlyTotal = serverList.reduce((sum, server) => sum + getMonthlyCost(server) * 12, 0);
     
     // 计算日均费用
-    const dailyAverage = (yearlyTotal / 365).toFixed(2);
+    const dailyAverage = yearlyTotal / 365;
     
     return {
-        yearlyTotal: `¥${yearlyTotal.toLocaleString()}`,
-        dailyAverage: `¥${dailyAverage}`
+        yearlyTotal: `¥${formatMoney(yearlyTotal)}`,
+        dailyAverage: `¥${formatMoney(dailyAverage)}`
     };
 }
 
 // 更精确的计算函数（考虑不同计费周期）
 function calculatePreciseCosts() {
     if (!serverList || serverList.length === 0) {
-        return { yearlyTotal: '¥0', dailyAverage: '¥0.00', activeServers: 0 };
+        return { yearlyTotal: '¥0.00', dailyAverage: '¥0.00', activeServers: 0 };
     }
     
     const now = new Date();
@@ -33,22 +81,21 @@ function calculatePreciseCosts() {
         
         // 只计算未过期的服务器
         if (expireDate > now) {
-            const monthsRemaining = (expireDate.getFullYear() - now.getFullYear()) * 12 + 
-                                (expireDate.getMonth() - now.getMonth());
-            
-            // 限制最大计算为12个月（一年）
-            const effectiveMonths = Math.min(Math.max(monthsRemaining, 0), 12);
-            totalYearlyCost += (server.monthlyCost || 0) * effectiveMonths;
-            totalDailyCost += (server.monthlyCost || 0) / 30; // 近似日费用
+            const monthlyCost = getMonthlyCost(server);
+            const remainingDays = Math.ceil((expireDate - now) / (1000 * 60 * 60 * 24));
+            const effectiveDays = Math.min(Math.max(remainingDays, 0), 365);
+
+            totalYearlyCost += monthlyCost * (effectiveDays / 30);
+            totalDailyCost += monthlyCost / 30;
             activeServers++;
         }
     });
 
-    const preciseDailyAverage = activeServers > 0 ? (totalDailyCost / activeServers).toFixed(2) : '0.00';
+    const preciseDailyAverage = activeServers > 0 ? totalDailyCost : 0;
     
     return {
-        yearlyTotal: `¥${Math.round(totalYearlyCost).toLocaleString()}`,
-        dailyAverage: `¥${preciseDailyAverage}`,
+        yearlyTotal: `¥${formatMoney(totalYearlyCost)}`,
+        dailyAverage: `¥${formatMoney(preciseDailyAverage)}`,
         activeServers: activeServers
     };
 }
@@ -96,7 +143,7 @@ function predictFutureCosts(months = 12) {
         serverList.forEach(server => {
             const expireDate = new Date(server.expire);
             if (expireDate > targetDate) {
-                monthlyCost += server.monthlyCost;
+                monthlyCost += getMonthlyCost(server);
             }
         });
         
