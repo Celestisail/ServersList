@@ -235,6 +235,17 @@ body {
   border-bottom: 1px solid #eee;
 }
 
+.loading-state,
+.empty-state {
+  background: #fff;
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+  color: #667eea;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .container {

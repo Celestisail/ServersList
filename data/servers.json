@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "[Starvm] HK CN2 VPS",
+    "vendor": "Starvm",
+    "type": "VPS",
+    "memory": "4C4G-30GB",
+    "bandwidth": "20Mbps",
+    "price": "￥28/Mon",
+    "monthlyCost": 28,
+    "expire": "2026-01-07",
+    "status": "normal"
+  },
+  {
+    "id": 2,
+    "name": "[Azure] Singapore VPS",
+    "vendor": "Azure",
+    "type": "VPS",
+    "memory": "2C1G-60GB",
+    "bandwidth": "2.5Gbps",
+    "price": "$21/year",
+    "monthlyCost": 12.34,
+    "expire": "2026-09-14",
+    "status": "normal"
+  },
+  {
+    "id": 3,
+    "name": "[Sadidc] HK happy-Lv2",
+    "vendor": "Sadidc",
+    "type": "VPS",
+    "memory": "2C2G-40GB",
+    "bandwidth": "20Mbps",
+    "price": "￥14/Mon",
+    "monthlyCost": 14,
+    "expire": "2026-01-08",
+    "status": "normal"
+  },
+  {
+    "id": 4,
+    "name": "[Sadidc] Sad-us plus CN2",
+    "vendor": "Sadidc",
+    "type": "VPS",
+    "memory": "8C8G-100GB",
+    "bandwidth": "100Mbps",
+    "price": "￥24.99/Mon",
+    "monthlyCost": 24.99,
+    "expire": "2026-01-06",
+    "status": "normal"
+  },
+  {
+    "id": 5,
+    "name": "[Sadidc] HKbig Sad plus",
+    "vendor": "Sadidc",
+    "type": "VPS",
+    "memory": "8C8G-100GB",
+    "bandwidth": "50Mbps",
+    "price": "￥27/Mon",
+    "monthlyCost": 27,
+    "expire": "2025-12-22",
+    "status": "normal"
+  },
+  {
+    "id": 6,
+    "name": "[Sadidc] Beijing BGP Nat",
+    "vendor": "Sadidc",
+    "type": "Small KVM",
+    "memory": "1C512MB-10GB",
+    "bandwidth": "25Mbps",
+    "price": "￥1.3/Mon",
+    "monthlyCost": 1.3,
+    "expire": "2026-02-13",
+    "status": "normal"
+  },
+  {
+    "id": 7,
+    "name": "[Sadidc] HK-A tiny",
+    "vendor": "Sadidc",
+    "type": "LXC Mini-Computer",
+    "memory": "1C128M-1GB",
+    "bandwidth": "150Mbps",
+    "price": "￥12/Mon",
+    "monthlyCost": 1,
+    "expire": "2026-11-08",
+    "status": "normal"
+  }
+]
